@@ -30,8 +30,8 @@ class ViewController: UIViewController {
     }
     
     @IBAction func searchButtonTapped(_ sender: Any) {
-        guard !contentTextField.text!.isEmpty, !pageTextField.text!.isEmpty else { return }
-        viewModel.fetchData(text: contentTextField.text!, pages: pageTextField.text!)
+        guard let searchTitle = contentTextField.text, let prePage = pageTextField.text else { return }
+        viewModel.fetchData(text: searchTitle, pages: "1", prePage: prePage)
     }
     
 }
@@ -67,8 +67,9 @@ extension ViewController: ViewModelDelegate {
     func didFinishedFetchData() {
         if let vc = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PhotoCollectionViewController") as? PhotoCollectionViewController {
             vc.searchTitle = contentTextField.text!
-            if let photo = viewModel.photoResponseData?.photos?.photo {
+            if let photo = viewModel.photoResponseData?.photos?.photo, let prePage = Int(pageTextField.text!) {
                 vc.viewModel.photo = photo
+                vc.viewModel.currentPrePage = prePage
             }
 
             navigationController?.navigationBar.topItem!.title = "搜尋輸入頁"

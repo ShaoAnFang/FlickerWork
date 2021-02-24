@@ -11,8 +11,9 @@ import Foundation
 struct HttpRequest {
     var text: String = ""
     var perPage: String = ""
+    var page: String = ""
     var urlString: String {
-        return "https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=b7facd5fe3f7a07d194149eec1f36e7e&text=\(text)&per_page=\(perPage)&format=json&nojsoncallback=1"
+        return "https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=b7facd5fe3f7a07d194149eec1f36e7e&text=\(text)&page=\(page)&per_page=\(perPage)&format=json&nojsoncallback=1"
     }
     var headers: [String: String] = [:]
     var body: Data? = nil
